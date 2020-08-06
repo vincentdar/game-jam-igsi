@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
 
     private GroundGrid grid;
 
+    [SerializeField]
+    GameObject mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (mainCamera.GetComponent<CameraController>().isFreeCamera) {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.W)) { 
             if (grid.CheckNodeAvailability(currentPlayerPosition.x, currentPlayerPosition.y + 1)) {
                 Move(new Vector2Int(currentPlayerPosition.x, currentPlayerPosition.y + 1));
