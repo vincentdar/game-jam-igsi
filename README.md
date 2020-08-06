@@ -2,8 +2,8 @@
 By: Garlic Studio
 
 Members:
-- [Matthew Sutanto](github.com/mtstnt)
-- [Winson E. Sutanto](github.com/kaburov38)
+- [Matthew Sutanto](https://github.com/mtstnt)
+- [Winson E. Sutanto](https://github.com/kaburov38)
 -
 -
 -
