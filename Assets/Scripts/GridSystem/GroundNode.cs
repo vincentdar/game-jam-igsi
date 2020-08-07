@@ -5,7 +5,7 @@ using UnityEngine;
 public class GroundNode
 {
     public Vector2Int gridPosition { get; private set; }
-    private bool isWalkable;
+    public bool isWalkable { get; private set; }
     public Vector3 worldPosition;
 
     public GroundNode(int gridX, int gridY, bool isWalkable)   

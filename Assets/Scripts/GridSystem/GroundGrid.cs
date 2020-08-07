@@ -10,6 +10,7 @@ public class GroundGrid : MonoBehaviour
 {
     // Jumlah grid yang diinginkan (row, col);
     public float gridNodeDiameter = 2;
+    public LayerMask wallLayerMask;
 
     public Vector3 gridWorldSize { get; private set; }
     private int gridSizeX, gridSizeY;
@@ -44,10 +45,16 @@ public class GroundGrid : MonoBehaviour
         for (int i = 0; i < gridSizeY; i++) {
             for (int j = 0; j < gridSizeX; j++) {
                 Vector3 worldPosition = new Vector3();
+                bool isWalkable = true;
                 worldPosition.x = bottomLeftWorldPosition.x + (j * gridNodeDiameter);
                 worldPosition.z = bottomLeftWorldPosition.y + (i * gridNodeDiameter);
                 worldPosition.y = 0;
-                nodes[i, j] = new GroundNode(j, i, true);
+
+                if (Physics.CheckSphere(worldPosition, 1, wallLayerMask)) {
+                    isWalkable = false;
+                }
+
+                nodes[i, j] = new GroundNode(j, i, isWalkable);
                 nodes[i, j].worldPosition = worldPosition;
             }
         }
@@ -66,7 +73,12 @@ public class GroundGrid : MonoBehaviour
         if (nodes != null) 
         {
             foreach (GroundNode node in nodes) {
-                Gizmos.color = Color.blue;
+                if (!node.isWalkable) {
+                    Gizmos.color = Color.red;
+                }
+                else {
+                    Gizmos.color = Color.blue;
+                }
                 Gizmos.DrawWireCube(node.worldPosition, Vector3.one * gridNodeDiameter);
             }
         }
@@ -85,6 +97,11 @@ public class GroundGrid : MonoBehaviour
     }
 
     public bool CheckNodeAvailability(int x, int y) {
-        return (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY);
+        if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY) {
+            if (nodes[y,x].isWalkable) {
+                return true;
+            }
+        }
+        return false;
     }
 }
