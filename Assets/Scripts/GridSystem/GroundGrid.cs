@@ -52,7 +52,9 @@ public class GroundGrid : MonoBehaviour
 
                 if (Physics.CheckSphere(worldPosition, 1, wallLayerMask)) {
                     isWalkable = false;
-                }
+                }   
+
+
 
                 nodes[i, j] = new GroundNode(j, i, isWalkable);
                 nodes[i, j].worldPosition = worldPosition;
